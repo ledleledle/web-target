@@ -1,3 +1,3 @@
 <?php
-	$conn = mysqli_connect("localhost","root","anjing","pwned");
+	$conn = mysqli_connect("localhost","root","","pwned");
 ?>
