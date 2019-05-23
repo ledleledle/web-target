@@ -1,5 +1,7 @@
 <?php
+session_start();
 include 'connect.php';
+@$param = $_SESSION['param'];
 
 if(isset($_POST['submit'])){
 $username = $_POST['name'];
@@ -9,8 +11,10 @@ $query = mysqli_query($conn, "SELECT * FROM admin WHERE username='{$username}' A
 $cek = mysqli_num_rows($query);
 
 if($cek == 0) {
-	die("Username dan Password Tidak Terdaftar");
+  header("location:login_admin.php");
+	$_SESSION['param'] = 'gagal';
 }else{
+  unset($_SESSION['param']);
 	header("location:admin.php");
 	}
 }
@@ -29,6 +33,11 @@ if($cek == 0) {
     <form class="form-signin" method="POST">
   <div class="text-center mb-4">
     <h1 class="h3 mb-3 font-weight-normal">Hello, Admin</h1>
+    <?php
+    if($param == "gagal"){ ?>
+    <div class="alert alert-danger">
+  <strong>Gagal !</strong> Username atau Password Salah.
+</div> <?php } ?>
   </div>
 
   <div class="form-label-group">
